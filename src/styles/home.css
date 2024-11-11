@@ -1,0 +1,89 @@
+.main-div {
+    /* Set a white background and gradient overlay with transparency */
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), /* Light gradient overlay */
+      url('../assets/carRight-removebg-preview.png'), /* Right image */
+      url('../assets/carLeft-removebg-preview.png'); /* Left image */
+    background-size: cover, auto, auto; /* Cover gradient, keep images at original size */
+    background-position: center, right 0 bottom 0%, left 0 bottom 24%; /* Position gradient and images */
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    width: 100%;
+    height: 93vh; /* Full viewport height */
+    position: relative;
+    color: white;
+}
+
+.content {
+    position: relative;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Optional: add background to improve text readability */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.half-top-border {
+    position: relative;
+}
+  
+.half-top-border::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2%;
+    height: 3px;
+    background-color: black;
+}
+
+.element {
+    position: relative; /* Ensures pseudo-elements are positioned relative to this element */
+    width: 150px; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed */
+  }
+  
+  .element::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10%; /* Half the width for the bottom border */
+    height: 2px; /* Thickness of the bottom border */
+    background-color: black; /* Color of the bottom border */
+  }
+  
+  .element::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px; /* Thickness of the left border */
+    height: 40%; /* Half the height for the left border */
+    background-color: black; /* Color of the left border */
+  }
+
+  .element2 {
+    position: relative; /* Ensures pseudo-elements are positioned relative to this element */
+    width: 200px; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed */
+  }
+  
+  .element2::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10%; /* Half the width for the bottom border */
+    height: 2px; /* Thickness of the bottom border */
+    background-color: black; /* Color of the bottom border */
+  }
+  
+  .element2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px; /* Thickness of the left border */
+    height: 40%; /* Half the height for the left border */
+    background-color: black; /* Color of the left border */
+  }
+  
