@@ -20,7 +20,7 @@ const japanese =  M_PLUS_2({
 });
 
 
-export default function Home() {
+ function Home() {
   return (
     <div>
       <Navbar />
@@ -88,3 +88,4 @@ export default function Home() {
     </div>
   );
 }
+export default Home;
