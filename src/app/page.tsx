@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar";
 import "../styles/home.css";
 import { Button, Flex, Image } from "antd";
 import img1 from "@/assets/girsl-images-removebg-preview.png";
-import img2 from "@/assets/min-image-removebg-preview.png";
-import img3 from "@/assets/right__image-removebg-preview.png";
+import img2 from "@/assets/min-image.jpeg";
+import img3 from "@/assets/image3_side.png";
 import side from "@/assets/sideSkirt-removebg-preview.png";
 import { Fira_Sans_Condensed , M_PLUS_2} from "next/font/google";
 import { TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
@@ -61,7 +61,7 @@ export default function Home() {
         <Flex justify="space-between" align="center">
           <Flex vertical style={{ paddingInline : "30px"}}>
              <h2 style={{ color : "black" , paddingLeft : "10px" , fontSize : "25px" , width : "auto"}} className={`${firaSansCondensed.className} element2`}>MOZILLA PHEO<span style={{ color : "red"}}>NIX CL</span>UB</h2>
-             <h1 style={{ color : "black" , fontSize : "50px"}} className={`${japanese.className}`}>戦う理由は、未来を守るためだ!</h1>
+             <h1 style={{ color : "black" , fontSize : "70px"}} className={`${japanese.className}`}>ウブは決して死ぬ</h1>
              <h2 style={{ color : "black"}} className={`${firaSansCondensed.className}`}>Unlock the Treasure, Conquer the Battle, Live the Adventure.</h2>
           </Flex>
           <Flex gap={20}  style={{ paddingRight : "20px"}}>
@@ -76,6 +76,14 @@ export default function Home() {
             <Image preview={false} style={{ width : "500px"}} src={side.src}/>
           </Flex>
         </Flex>
+      </div>
+      <div className="super_saiyan"
+        style={{
+          backgroundColor : "black",
+          width: "100%",
+          height: "100vh",
+        }}
+      >
       </div>
     </div>
   );
