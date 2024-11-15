@@ -6,8 +6,8 @@ import img2 from "@/assets/min-image.jpeg";
 import img3 from "@/assets/image3_side.png";
 import side from "@/assets/sideSkirt-removebg-preview.png";
 import section1_1 from "@/assets/section1/download ( 5)_inverted.png"
-import section1_2 from "@/assets/section1/Jujutsu Kaisen (1)_inverted.png"
-import section1_3 from "@/assets/section1/download (7)_inverted.png"
+import section1_2 from "@/assets/section1/fiinal_section1_2.png"
+import section1_3 from "@/assets/section1/fiinal_section1_3.png"
 import { Fira_Sans_Condensed , M_PLUS_2} from "next/font/google";
 import { TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
 
@@ -94,8 +94,8 @@ export default function Home() {
         {/* Center Diagonal Panel */}
         <div className="panel panel-center">
           <Flex justify="center" align="center" vertical>
-            <span style={{ color : "white" , fontSize : "30px"}}>Welcome to War for Treasure</span>
-            <span style={{ color : "white" , fontSize : "20px"}}>宝のため<span style={{ color : "red"}}>の戦 争へ</span>ようこそ!</span>
+            <span style={{ color : "white" , fontSize : "38px"}}>Welcome to War for Treasure</span>
+            <span style={{ color : "white" , fontSize : "22px"}}>宝のため<span style={{ color : "red"}}>の戦 争へ</span>ようこそ!</span>
           </Flex>
           <img src={section1_1.src} alt="Center Diagonal Image"/>
         </div>
