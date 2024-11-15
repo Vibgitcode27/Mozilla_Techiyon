@@ -5,6 +5,9 @@ import img1 from "@/assets/girsl-images-removebg-preview.png";
 import img2 from "@/assets/min-image.jpeg";
 import img3 from "@/assets/image3_side.png";
 import side from "@/assets/sideSkirt-removebg-preview.png";
+import section1_1 from "@/assets/section1/download ( 5)_inverted.png"
+import section1_2 from "@/assets/section1/Jujutsu Kaisen (1)_inverted.png"
+import section1_3 from "@/assets/section1/download (7)_inverted.png"
 import { Fira_Sans_Condensed , M_PLUS_2} from "next/font/google";
 import { TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
 
@@ -77,13 +80,34 @@ export default function Home() {
           </Flex>
         </Flex>
       </div>
-      <div className="super_saiyan"
-        style={{
-          backgroundColor : "black",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
+      <div className="super_saiyan">
+        {/* Top Left Panel */}
+        {/* <div className="panel panel-top-left">
+          <img src={img1.src} alt="Top Left Image" />
+        </div> */}
+        
+        {/* Top Right Panel */}
+        {/* <div className="panel panel-top-right">
+          <img src={img2.src} alt="Top Right Image" />
+        </div> */}
+        
+        {/* Center Diagonal Panel */}
+        <div className="panel panel-center">
+          <Flex justify="center" align="center" vertical>
+            <span style={{ color : "white" , fontSize : "30px"}}>Welcome to War for Treasure</span>
+            <span style={{ color : "white" , fontSize : "20px"}}>宝のため<span style={{ color : "red"}}>の戦 争へ</span>ようこそ!</span>
+          </Flex>
+          <img src={section1_1.src} alt="Center Diagonal Image"/>
+        </div>
+        
+        {/* Bottom Left Panel */}
+        <div className="panel panel-bottom-left">
+          <img src={section1_2.src} alt="Bottom Left Image" />
+        </div>
+        {/* Bottom Right Panel */}
+        <div className="panel panel-bottom-right">
+          <img src={section1_3.src} alt="Bottom Right Image" />
+        </div>
       </div>
     </div>
   );
