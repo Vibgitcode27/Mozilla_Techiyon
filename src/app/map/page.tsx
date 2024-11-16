@@ -49,7 +49,7 @@ export default function Map_page() {
             .catch(error => console.log('error', error));
 
 
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL);
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL|| "");
         ws.onopen = () => {
             ws.send(JSON.stringify({ "event": "team-connect", "data": { "teamId": teamId } }));
         };
