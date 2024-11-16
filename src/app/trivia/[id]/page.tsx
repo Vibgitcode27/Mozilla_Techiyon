@@ -51,7 +51,7 @@ function trivia() {
 
 
     useEffect(() => {
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL);
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
         ws.onopen = () => {
             ws.send(JSON.stringify({ "event": "team-connect", "data": { "teamId": teamId } }));
             console.log('WebSocket connection opened');
