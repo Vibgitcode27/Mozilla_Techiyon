@@ -82,18 +82,24 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
         };
 
         try {
-            // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, requestOptions)
-            // const result = await response.json();
-            // console.log(result);
-            // Cookies.set('jwt', result.token, { expires: 7 })
-            // Cookies.set('teamId', result.teamId, { expires: 7 })
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, requestOptions)
+            const result = await response.json();
+            console.log(result);
+            if (result.message === 'Login successful') {
+                Cookies.set('jwt', result.token, { expires: 7 })
+                Cookies.set('teamId', result.teamId, { expires: 7 })
 
-            // messageApi.open({
-            //     type: 'success',
-            //     content: 'Successfully signed in',
-            // });
-            // router.push('/map')
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+                messageApi.open({
+                    type: 'success',
+                    content: 'Successfully signed in',
+                });
+                router.push('/map')
+            } else {
+                messageApi.open({
+                    type: 'error',
+                    content: 'Sign in failed',
+                });
+            }
         } catch (error) {
             console.error('Error during sign in:', error)
             messageApi.open({
@@ -115,111 +121,115 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Team Authentication</DialogTitle>
-                    <DialogDescription>Sign up or sign in to your team account.</DialogDescription>
-                </DialogHeader>
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="sign-up">Sign Up</TabsTrigger>
-                        <TabsTrigger value="sign-in">Sign In</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="sign-up">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Create Team Account</CardTitle>
-                                <CardDescription>Enter your team details to create an account.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <form onSubmit={handleSignUp}>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="teamName">Team Name</Label>
-                                        <Input id="teamName" name="teamName" required />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="password">Password</Label>
-                                        <Input id="password" name="password" type="password" required />
-                                    </div>
-                                    <div className="space-y-2 mt-4">
-                                        <Label>Team Members (up to 5)</Label>
-                                        {teamMembers.map((_, index) => (
-                                            <div key={index} className="flex space-x-2">
-                                                <Input
-                                                    placeholder={`Team Member ${index + 1}`}
-                                                    name={`teamMember${index + 1}`}
-                                                    required
-                                                />
-                                                <Input
-                                                    placeholder="Enrollment No."
-                                                    name={`enrollment${index + 1}`}
-                                                    required
-                                                />
-                                                {index > 0 && (
-                                                    <Button
-                                                        type="button"
-                                                        variant="outline"
-                                                        size="icon"
-                                                        onClick={() => removeTeamMember(index)}
-                                                    >
-                                                        <MinusCircledIcon className="h-4 w-4" />
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        ))}
-                                        {teamMembers.length < 5 && (
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                onClick={addTeamMember}
-                                                className="mt-2"
-                                            >
-                                                <PlusCircledIcon className="mr-2 h-4 w-4" />
-                                                Add Team Member
-                                            </Button>
-                                        )}
-                                    </div>
-                                    <Button type="submit" className="w-full mt-4">Sign Up</Button>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </TabsContent>
-                    <TabsContent value="sign-in">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Sign In to Your Team Account</CardTitle>
-                                <CardDescription>Enter your team credentials to sign in.</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-4">
-                                <form onSubmit={handleSignIn}>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="signInTeamName">Team Name</Label>
-                                        <Input id="signInTeamName" name="teamName" required />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="signInPassword">Password</Label>
-                                        <Input id="signInPassword" name="password" type="password" required />
-                                    </div>
-                                    <Button type="submit" className="w-full mt-4">Sign In</Button>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </TabsContent>
-                </Tabs>
-                <CardFooter className="flex justify-center">
-                    <p className="text-sm text-muted-foreground">
-                        {activeTab === 'sign-up' ? "Already have an account? " : "Don't have an account? "}
-                        <Button
-                            variant="link"
-                            className="p-0"
-                            onClick={() => setActiveTab(activeTab === 'sign-up' ? 'sign-in' : 'sign-up')}
-                        >
-                            {activeTab === 'sign-up' ? "Sign In" : "Sign Up"}
-                        </Button>
-                    </p>
-                </CardFooter>
-            </DialogContent>
-        </Dialog>
+        <>
+
+            {contextHolder}
+            <Dialog open={isOpen} onOpenChange={onClose}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Team Authentication</DialogTitle>
+                        <DialogDescription>Sign up or sign in to your team account.</DialogDescription>
+                    </DialogHeader>
+                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                        <TabsList className="grid w-full grid-cols-2">
+                            <TabsTrigger value="sign-up">Sign Up</TabsTrigger>
+                            <TabsTrigger value="sign-in">Sign In</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="sign-up">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Create Team Account</CardTitle>
+                                    <CardDescription>Enter your team details to create an account.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <form onSubmit={handleSignUp}>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="teamName">Team Name</Label>
+                                            <Input id="teamName" name="teamName" required />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="password">Password</Label>
+                                            <Input id="password" name="password" type="password" required />
+                                        </div>
+                                        <div className="space-y-2 mt-4">
+                                            <Label>Team Members (up to 5)</Label>
+                                            {teamMembers.map((_, index) => (
+                                                <div key={index} className="flex space-x-2">
+                                                    <Input
+                                                        placeholder={`Team Member ${index + 1}`}
+                                                        name={`teamMember${index + 1}`}
+                                                        required
+                                                    />
+                                                    <Input
+                                                        placeholder="Enrollment No."
+                                                        name={`enrollment${index + 1}`}
+                                                        required
+                                                    />
+                                                    {index > 0 && (
+                                                        <Button
+                                                            type="button"
+                                                            variant="outline"
+                                                            size="icon"
+                                                            onClick={() => removeTeamMember(index)}
+                                                        >
+                                                            <MinusCircledIcon className="h-4 w-4" />
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            ))}
+                                            {teamMembers.length < 5 && (
+                                                <Button
+                                                    type="button"
+                                                    variant="outline"
+                                                    onClick={addTeamMember}
+                                                    className="mt-2"
+                                                >
+                                                    <PlusCircledIcon className="mr-2 h-4 w-4" />
+                                                    Add Team Member
+                                                </Button>
+                                            )}
+                                        </div>
+                                        <Button type="submit" className="w-full mt-4">Sign Up</Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                        <TabsContent value="sign-in">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Sign In to Your Team Account</CardTitle>
+                                    <CardDescription>Enter your team credentials to sign in.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <form onSubmit={handleSignIn}>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="signInTeamName">Team Name</Label>
+                                            <Input id="signInTeamName" name="teamName" required />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="signInPassword">Password</Label>
+                                            <Input id="signInPassword" name="password" type="password" required />
+                                        </div>
+                                        <Button type="submit" className="w-full mt-4">Sign In</Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
+                    </Tabs>
+                    <CardFooter className="flex justify-center">
+                        <p className="text-sm text-muted-foreground">
+                            {activeTab === 'sign-up' ? "Already have an account? " : "Don't have an account? "}
+                            <Button
+                                variant="link"
+                                className="p-0"
+                                onClick={() => setActiveTab(activeTab === 'sign-up' ? 'sign-in' : 'sign-up')}
+                            >
+                                {activeTab === 'sign-up' ? "Sign In" : "Sign Up"}
+                            </Button>
+                        </p>
+                    </CardFooter>
+                </DialogContent>
+            </Dialog>
+        </>
     )
 }

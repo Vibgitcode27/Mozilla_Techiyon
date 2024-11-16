@@ -4,7 +4,9 @@ import React from 'react';
 import './MangaGrid.css';
 import { Input, Button } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
-const MangaGrid = ({ images }: { images: string[] }) => {
+const MangaGrid = ({ images, onSubmit }: { images: string[], onSubmit: (inputValue: string) => void }) => {
+    const [inputValue, setInputValue] = React.useState("");
+
     return (
         <div className="manga-grid-container">
             <div className='manga-grid-subcontainer'>
@@ -35,6 +37,8 @@ const MangaGrid = ({ images }: { images: string[] }) => {
                                 background: 'transparent'
                             }}
                             placeholder="Enter your text here"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
                         />
                         <Button
                             type="primary"
@@ -50,6 +54,7 @@ const MangaGrid = ({ images }: { images: string[] }) => {
                                 marginLeft: '5px'
                             }}
                             icon={<ArrowRightOutlined />}
+                            onClick={() => onSubmit(inputValue)}
                         />
                     </div>
                 </div>

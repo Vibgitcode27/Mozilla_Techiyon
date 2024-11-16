@@ -5,13 +5,14 @@ import { LocateIcon } from 'lucide-react';
 import { parseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { useZones } from '../../lib/zoneSlice'; // Adjust the import according to your file structure
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { Modal } from 'antd';
-
+import { Modal, Spin } from 'antd';
+import { message } from 'antd';
 export default function Map_page() {
     const { zones, initialize } = useZones();
+    const [messageApi, contextHolder] = message.useMessage();
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const cookies = parseCookie(document.cookie);
@@ -30,13 +31,18 @@ export default function Map_page() {
             headers: myHeaders,
             redirect: "follow" as RequestRedirect
         };
-
         fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/game-status`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 initialize(result.zones);
+                console.log('zones', result.zones);
+                setLoading(false);
             })
-            .catch(error => console.log('error', error));
+            .catch(error => {
+                console.log('error', error);
+                setLoading(false);
+            });
+
 
 
         fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/check-lock`, requestOptions)
@@ -49,14 +55,16 @@ export default function Map_page() {
             .catch(error => console.log('error', error));
 
 
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL|| "");
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
         ws.onopen = () => {
             ws.send(JSON.stringify({ "event": "team-connect", "data": { "teamId": teamId } }));
         };
 
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            console.log('Received message:', data);
+            if (data.event === "broadcast") {
+                messageApi.info(data.data.message);
+            }
         };
 
         ws.onclose = () => {
@@ -66,31 +74,51 @@ export default function Map_page() {
 
     }, []);
 
-    const tags = [
-        { top: '20%', left: '40%', tooltip: 'Location 1', id: zones[0].id },
-        { top: '53%', left: '61%', tooltip: 'Location 2', id: zones[1].id },
-        { top: '70%', left: '30%', tooltip: 'Location 3', id: zones[2].id },
-        { top: '87%', left: '90%', tooltip: 'Location 4', id: zones[2].id },
-        { top: '29%', left: '90%', tooltip: 'Location 5', id: zones[2].id },
-        { top: '53%', left: '10%', tooltip: 'Location 6', id: zones[2].id },
-    ];
+    interface Tag {
+        top: string;
+        left: string;
+        tooltip: string;
+        id: string;
+    }
+
+    const handleTagClick = (zoneId: string) => {
+        router.push(`/trivia/${zoneId}`);
+    };
+
+    const tags = zones && zones.length > 0 ? [
+        { top: '20%', left: '40%', tooltip: zones[0].name, id: zones[0].id },
+        { top: '53%', left: '61%', tooltip: zones[1].name, id: zones[1].id },
+        { top: '70%', left: '30%', tooltip: zones[2].name, id: zones[2].id },
+        { top: '87%', left: '90%', tooltip: zones[3].name, id: zones[3].id },
+        { top: '29%', left: '90%', tooltip: zones[4].name, id: zones[4].id },
+    ] : [];
 
     return (
+        <>
+        
+        {contextHolder}
         <div className="map-container">
-            {tags.map((tag, index) => (
-                <div
-                    key={index}
-                    className="tag"
-                    style={{ top: tag.top, left: tag.left }}
-                    onClick={() => router.push(`/trivia/${tag.id}`)}
-                >
-                    <LocateIcon style={{ color: 'rgb(174, 0, 255)', backgroundColor: "transparent" }} />
-                    <div className="tooltip">{tag.tooltip}</div>
-                </div>
-            ))}
-            <Modal open={showModal} closable={false} footer={null}>
-                <div className="tenor-gif-embed" data-postid="17312966" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/carryminati-ajey-nagar-indian-you-tuber-carryminati-roast-carry-gif-17312966">Carryminati Ajey Nagar GIF</a>from <a href="https://tenor.com/search/carryminati-gifs">Carryminati GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-            </Modal>
+            {loading ? (
+                <Spin size="large" />
+            ) : (
+                <>
+                    {tags.map((tag, index) => (
+                        <div
+                            key={index}
+                            className="tag"
+                            style={{ top: tag.top, left: tag.left }}
+                            onClick={() => handleTagClick(tag.id)}
+                        >
+                            <LocateIcon style={{ color: 'rgb(174, 0, 255)', backgroundColor: "transparent" }} />
+                            <div className="tooltip">{tag.tooltip}</div>
+                        </div>
+                    ))}
+                    <Modal open={showModal} closable={false} footer={null}>
+                        <div className="tenor-gif-embed" data-postid="17312966" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/carryminati-ajey-nagar-indian-you-tuber-carryminati-roast-carry-gif-17312966">Carryminati Ajey Nagar GIF</a>from <a href="https://tenor.com/search/carryminati-gifs">Carryminati GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                    </Modal>
+                </>
+            )}
         </div>
+        </>  
     );
 };

@@ -43,7 +43,7 @@ body {
 .tooltip {
     visibility: hidden;
     width: 120px;
-    background-color: red;
+    background-color: rgb(0, 0, 0);
     color: #fff;
     text-align: center;
     border-radius: 5px;

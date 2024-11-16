@@ -1,4 +1,3 @@
-
 'use client'
 import { Flex, Button } from "antd";
 import { Fira_Sans_Condensed, Schibsted_Grotesk } from "next/font/google";
@@ -55,6 +54,9 @@ export default function Navbar() {
                         </Flex>
                     )}
 
+                    {pathname !== "/" && pathname !== "/map" && (
+                        <Button onClick={() => router.push('/map')} style={{ border: "2px solid black", fontWeight: "600", borderRadius: "12px" }}>MAP</Button>
+                    )}
                 </Flex>
             </Flex>
             <SignInModal isOpen={isModalVisible} onClose={handleCancel} />
