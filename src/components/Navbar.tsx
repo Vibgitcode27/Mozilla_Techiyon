@@ -1,3 +1,4 @@
+
 'use client'
 import { Flex, Button } from "antd";
 import { Fira_Sans_Condensed, Schibsted_Grotesk } from "next/font/google";
@@ -45,7 +46,6 @@ export default function Navbar() {
                         <h1>TRESARUE HUNT</h1>
                     </Flex>
                     <Flex gap={10}>
-                        <Button style={{ border: "2px solid black", fontWeight: "600", borderRadius: "12px" }}>SIGN UP</Button>
                         <Button onClick={showModal} style={{ border: "2px solid black", backgroundColor: "black", color: "white", borderRadius: "12px" }}>SIGN IN</Button>
                     </Flex>
                 </Flex>
