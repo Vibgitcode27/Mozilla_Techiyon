@@ -2,7 +2,7 @@
 import "../../../styles/trivia.css";
 import React, { useEffect } from 'react';
 import Navbar from "@/components/Navbar";
-import { Button, Flex, Image, message } from "antd";
+import { Button, Flex, Image, message, Modal } from "antd";
 import { Fira_Sans_Condensed, M_PLUS_2 } from "next/font/google";
 import MangaGrid from "@/components/mangaGrid";
 import { useParams } from "next/navigation";
@@ -13,6 +13,7 @@ function trivia() {
     const [images, setImages] = React.useState<string[]>([]);
     const [teamId, setTeamId] = React.useState<string | null>(null);
     const [answer, setAnswer] = React.useState<string>("");
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
     useEffect(() => {
         const cookies = parseCookie(document.cookie);
         const jwt = cookies.get('jwt');
@@ -35,6 +36,7 @@ function trivia() {
                 body: raw,
                 redirect: "follow" as RequestRedirect
             };
+
 
             fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/teams/next-question`, requestOptions)
                 .then((response) => response.json())
@@ -61,6 +63,10 @@ function trivia() {
             if (data.event === "broadcast") {
                 messageApi.info(data.data.message);
             }
+            if (data.event === "team-unlock") {
+                setIsModalOpen(false);
+                messageApi.success("Team unlocked!");
+            }
 
         };
 
@@ -68,7 +74,7 @@ function trivia() {
             console.log('WebSocket connection closed');
         };
 
-    }, []);
+    }, [teamId]);
 
     const handleSubmit = (answer: string) => {
         const cookies = parseCookie(document.cookie);
@@ -105,6 +111,27 @@ function trivia() {
             .catch((error) => console.error(error));
     };
 
+    const checkLock = () => {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTNqd2NuMXkwMDAwdzFybG5xemI3cGc5IiwiaWF0IjoxNzMxNzQ1MTU2LCJleHAiOjE3MzIzNDk5NTZ9.J8Y9XkvbywUo5H8NWvVSjeeSU4OqEq9kgiUM-qrGOg8");
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow" as RequestRedirect
+        };
+
+        fetch("http://localhost:5000/public/check-lock", requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+                console.log(result);
+                if (result === "success") {
+                    setIsModalOpen(true);
+                }
+            })
+            .catch((error) => console.error(error));
+    };
+
     return (
         <>
             <Navbar />
@@ -117,6 +144,9 @@ function trivia() {
                     </Flex>
                 </Flex>
             </div>
+            <Modal title="Please wait" visible={isModalOpen} footer={null} closable={false}>
+                <div className="tenor-gif-embed" data-postid="2178263242676691188" data-share-method="host" data-aspect-ratio="1.16489" data-width="100%"><a href="https://tenor.com/view/asdf-movie-punt-kick-donewithus-gif-2178263242676691188">Asdf Movie GIF</a>from <a href="https://tenor.com/search/asdf-gifs">Asdf GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </Modal>
         </>
     )
 }
