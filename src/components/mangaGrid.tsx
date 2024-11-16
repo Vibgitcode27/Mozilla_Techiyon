@@ -20,7 +20,7 @@ const MangaGrid = ({ images }: { images: string[] }) => {
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        border: '1px solid #d9d9d9',
+                        border: '3px solid red',
                         borderRadius: '50px',
                         padding: '5px',
                         background: '#fff'
