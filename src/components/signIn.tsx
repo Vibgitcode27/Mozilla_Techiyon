@@ -50,7 +50,6 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, requestOptions)
             const result = await response.json();
             console.log(result);
-            router.push('/wait')
             messageApi.open({
                 type: 'success',
                 content: 'This is a success message',
