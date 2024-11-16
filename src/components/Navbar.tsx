@@ -51,7 +51,6 @@ export default function Navbar() {
 
                     {showAuthButtons && (
                         <Flex gap={10}>
-                            <Button style={{ border: "2px solid black", fontWeight: "600", borderRadius: "12px" }}>SIGN UP</Button>
                             <Button onClick={showModal} style={{ border: "2px solid black", fontWeight: "600", borderRadius: "12px" }}>SIGN IN</Button>
                         </Flex>
                     )}

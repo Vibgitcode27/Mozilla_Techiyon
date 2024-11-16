@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlusCircledIcon, MinusCircledIcon } from '@radix-ui/react-icons'
-import axios from 'axios'
 import { message } from 'antd';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie';
@@ -82,17 +81,18 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
         };
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, requestOptions)
-            const result = await response.json();
-            console.log(result);
-            Cookies.set('jwt', result.token, { expires: 7 })
-            Cookies.set('teamId', result.teamId, { expires: 7 })
+            // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, requestOptions)
+            // const result = await response.json();
+            // console.log(result);
+            // Cookies.set('jwt', result.token, { expires: 7 })
+            // Cookies.set('teamId', result.teamId, { expires: 7 })
 
-            messageApi.open({
-                type: 'success',
-                content: 'Successfully signed in',
-            });
-            router.push('/map')
+            // messageApi.open({
+            //     type: 'success',
+            //     content: 'Successfully signed in',
+            // });
+            // router.push('/map')
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
         } catch (error) {
             console.error('Error during sign in:', error)
             messageApi.open({
