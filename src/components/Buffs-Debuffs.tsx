@@ -22,7 +22,7 @@ export default function BuffsDebuffs() {
             window.location.href = "/";
         }
 
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL);
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
         ws.onopen = () => {
             console.log('WebSocket connection opened');
         };
