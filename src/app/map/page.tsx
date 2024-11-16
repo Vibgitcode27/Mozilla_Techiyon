@@ -55,9 +55,19 @@ export default function Map_page() {
             .catch(error => console.log('error', error));
 
 
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
+        const wsUrl = process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL;
+        if (!wsUrl) {
+            console.error("WebSocket URL is not defined");
+            return;
+        }
+
+        const ws = new WebSocket(wsUrl);
         ws.onopen = () => {
             ws.send(JSON.stringify({ "event": "team-connect", "data": { "teamId": teamId } }));
+        };
+
+        ws.onerror = (error) => {
+            console.error("WebSocket error:", error);
         };
 
         ws.onmessage = (event) => {
@@ -71,6 +81,9 @@ export default function Map_page() {
             console.log('WebSocket connection closed');
         };
 
+        return () => {
+            ws.close();
+        };
 
     }, []);
 

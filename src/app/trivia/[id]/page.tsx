@@ -51,19 +51,24 @@ function trivia() {
 
 
     useEffect(() => {
-
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL);
         ws.onopen = () => {
             ws.send(JSON.stringify({ "event": "team-connect", "data": { "teamId": teamId } }));
             console.log('WebSocket connection opened');
         };
-
+        checkLock();
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            console.log(data);
             if (data.event === "broadcast") {
                 messageApi.info(data.data.message);
             }
-            if (data.event === "team-unlock") {
+            if (data.event === "teams-locked") {
+                setIsModalOpen(false);
+                messageApi.success("Team unlocked!");
+            }
+
+            if (data.event === "teams-unlocked") {
                 setIsModalOpen(false);
                 messageApi.success("Team unlocked!");
             }
@@ -74,7 +79,7 @@ function trivia() {
             console.log('WebSocket connection closed');
         };
 
-    }, [teamId]);
+    }, []);
 
     const handleSubmit = (answer: string) => {
         const cookies = parseCookie(document.cookie);
@@ -113,7 +118,7 @@ function trivia() {
 
     const checkLock = () => {
         const myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTNqd2NuMXkwMDAwdzFybG5xemI3cGc5IiwiaWF0IjoxNzMxNzQ1MTU2LCJleHAiOjE3MzIzNDk5NTZ9.J8Y9XkvbywUo5H8NWvVSjeeSU4OqEq9kgiUM-qrGOg8");
+        myHeaders.append("Authorization", "Bearer " + parseCookie(document.cookie).get('jwt'));
 
         const requestOptions = {
             method: "POST",
@@ -121,7 +126,7 @@ function trivia() {
             redirect: "follow" as RequestRedirect
         };
 
-        fetch("http://localhost:5000/public/check-lock", requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/check-lock`, requestOptions)
             .then((response) => response.text())
             .then((result) => {
                 console.log(result);
