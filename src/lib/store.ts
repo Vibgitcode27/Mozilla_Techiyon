@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; 
+import storage from "redux-persist/lib/storage";
 import authSlice from './authSlice';
- 
+import zoneSlice from './zoneSlice';
 
 const persistConfig = {
     key: 'root',
@@ -11,6 +11,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: authSlice,
+    zones: zoneSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
