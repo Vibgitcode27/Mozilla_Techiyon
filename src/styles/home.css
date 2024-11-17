@@ -276,13 +276,26 @@
 }
 
 .panel2:hover img, .panel:hover img {
-  transform: scale(1.01); /* Slightly scale the image on hover */
+  transform: scale(1.01); 
+}
+
+.footer-d{
+  background-color: black;
+  height: auto;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  font-family: 'Fira Sans Condensed', sans-serif;
 }
 
 
 @media screen and (max-width: 1000px) {
-  .main-div, .section2, .super_saiyan, .footer-d {
-    display: none !important; /* Hides all other sections */
+  .main-div, .section2, .super_saiyan, .footer-d .navbar-home-mobile {
+    display: none !important;
   }
 
   .mobile-message {

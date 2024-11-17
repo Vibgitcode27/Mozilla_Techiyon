@@ -54,11 +54,11 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <div className="main-div">
         <Flex vertical style={{ fontFamily: "fantasy", fontSize: "35px", fontWeight: "800", paddingLeft: "400px", paddingTop: "10px" }} justify="start">
           <h1 className={`${firaSansCondensed.className} half-top-border element`} style={{ color: "black", paddingLeft: "10px" }}><span style={{ color: "red" }}>WA</span>R.FOR</h1>
-          <h1 className={`${firaSansCondensed.className} element2`} style={{ color: "black", marginLeft: "40px", paddingLeft: "12px" }}>TREASURE</h1>
+          <h1 className={`${firaSansCondensed.className} element2`} style={{ color: "black", marginLeft: "40px", paddingLeft: "12px" }}>TREZOR</h1>
         </Flex>
         <Flex justify="space-between" align="center" gap={100} style={{ background: "transparent", width: "100%" }}>
           <Flex style={{ position: "relative", width: "410px", height: "310px" }}>
@@ -97,11 +97,12 @@ export default function Home() {
           </Flex>
           <Flex gap={20} style={{ paddingRight: "20px" }}>
             <Button onClick={() => {
-              if (isLoggedIn) {
-                router.push("/map");
-              } else {
-                router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1");
-              }
+              // if (isLoggedIn) {
+              //   router.push("/map");
+              // } else {
+              //   router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1");
+              // }
+              router.push("/");
             }} style={{ backgroundColor: "#bebebebb", color: "black", fontSize: "22px", fontWeight: "700", borderRadius: "20px", height: "55px", width: "170px" }}>PLAY NOW</Button>
             <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }} style={{ border: "2px solid black", fontWeight: "600", fontSize: "22px", backgroundColor: "black", color: "white", height: "55px", width: "170px", borderRadius: "20px" }}>CONTACT US</Button>
 
@@ -128,8 +129,8 @@ export default function Home() {
 
         {/* Center Diagonal Panel */}
         <div className="panel2 panel2-center scale">
-          <Flex justify="center" align="center" vertical>
-            <span style={{ color: "black", fontSize: "50px" }}>Welcome to War for Treasure</span>
+          <Flex justify="center" align="center" style={{ padding : "30px"}} vertical>
+            <span style={{ color: "black", fontSize: "50px" , whiteSpace : "nowrap"}}>Welcome To War For Trezor</span>
             <span style={{ color: "black", fontSize: "24px" }}>宝のため<span style={{ color: "red" }}>の戦 争へ</span>ようこそ!</span>
           </Flex>
           <img src={section2_1.src} alt="Center Diagonal Image" />
@@ -158,12 +159,10 @@ export default function Home() {
           />
         </div>
 
-        {/* Panel 2 with Diagonal Cut */}
         <div className="panel panel-diagonal-2">
           <img src={section3_1.src} alt="Manga Panel 2" />
         </div>
 
-        {/* Panel 3 with Diagonal Cut */}
         <div className="panel panel-diagonal-3">
           <img src={section3_3.src} alt="Manga Panel 2" />
         </div>
@@ -175,25 +174,12 @@ export default function Home() {
 
 
       <div className="mobile-message" style={{ display: "none", height: "100%" }}>
-        <h1>Developers Left The Job!</h1>
+        <h1>DeskTop Only Event!</h1>
         <p>This event is desktop-only. Please switch to a larger screen to experience it.</p>
         <img src={sorry.src} alt="Apology" />
-        <p>But if you think you are special, we have something for you</p>
-        <Button style={{ marginTop: "10px", fontWeight: "700" }} onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }}>Gift</Button>
       </div>
 
-      <footer className="footer-d" style={{
-        backgroundColor: "black",
-        height: "auto",
-        color: "white",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-        overflow: "hidden",
-        fontFamily: "'Fira Sans Condensed', sans-serif",
-      }}>
+      <footer className="footer-d">
         {/* Event Name */}
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <h1 style={{
@@ -202,7 +188,7 @@ export default function Home() {
             letterSpacing: "3px",
             color: "red",
           }}>
-            WAR FOR TREASURE
+            WAR FOR TREZOR
           </h1>
           <p style={{
             fontSize: "20px",

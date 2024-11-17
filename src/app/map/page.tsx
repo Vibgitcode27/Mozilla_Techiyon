@@ -5,12 +5,12 @@ import './Map.css';
 import { LocateIcon } from 'lucide-react';
 import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { useZones } from '../../lib/zoneSlice'; // Adjust the import according to your file structure
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Modal, Spin } from 'antd';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { updateLeaderboard } from '../../lib/leaderboardSlice'; // Adjust the import according to your file structure
-import BroadCast from '@/components/BroadCasts';
+
 export default function Map_page() {
     const { zones, initialize } = useZones();
     const [messageApi, contextHolder] = message.useMessage();
