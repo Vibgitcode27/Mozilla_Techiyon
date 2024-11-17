@@ -1,10 +1,8 @@
 'use client'
 import { Flex, Button } from "antd";
 import { Fira_Sans_Condensed, Schibsted_Grotesk } from "next/font/google";
-import { TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Cookies from "js-cookie";
 import SignInModal from "./signIn";
 import { parseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 const firaSansCondensed = Fira_Sans_Condensed({
@@ -38,14 +36,13 @@ export default function Navbar() {
         <div>
             <Flex justify="space-between" align="center" style={{ paddingInline: "70px", paddingTop: "10px" }}>
                 <Flex>
-                    <h1 className={firaSansCondensed.className} style={{ fontWeight: "800", fontSize: "20px" }}>WAR.FOR.TREASURE</h1>
+                    <h1 className={firaSansCondensed.className} style={{ fontWeight: "800", fontSize: "20px" , color : "black" , cursor : "pointer" , userSelect : "none" }} onClick={() => {router.push("/s")}}>WAR.FOR.TREZOR</h1>
                 </Flex>
                 <Flex gap={90} justify="center" align="center">
                     <Flex justify="center" gap={20} style={{ fontWeight: "600" }}>
-                        <h1>EVENT</h1>
-                        <h1>MANGA</h1>
-                        <h1>DESIGN</h1>
-                        <h1>TRESARUE HUNT</h1>
+                        <h1 onClick={() => { router.push("/rules")}} style={{ cursor : "pointer" , userSelect : "none"  , color : "black"}}>RULES</h1>
+                        <h1 style={{ cursor : "pointer" , userSelect : "none"  , color : "black"}}>MANGA</h1>
+                        <h1 style={{ cursor : "pointer" , userSelect : "none"  , color : "black"}}>DESIGN</h1>
                     </Flex>
 
                     {showAuthButtons && (

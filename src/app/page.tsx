@@ -58,7 +58,7 @@ export default function Home() {
       <div className="main-div">
         <Flex vertical style={{ fontFamily: "fantasy", fontSize: "35px", fontWeight: "800", paddingLeft: "400px", paddingTop: "10px" }} justify="start">
           <h1 className={`${firaSansCondensed.className} half-top-border element`} style={{ color: "black", paddingLeft: "10px" }}><span style={{ color: "red" }}>WA</span>R.FOR</h1>
-          <h1 className={`${firaSansCondensed.className} element2`} style={{ color: "black", marginLeft: "40px", paddingLeft: "12px" }}>TREASURE</h1>
+          <h1 className={`${firaSansCondensed.className} element2`} style={{ color: "black", marginLeft: "40px", paddingLeft: "12px" }}>TREZOR</h1>
         </Flex>
         <Flex justify="space-between" align="center" gap={100} style={{ background: "transparent", width: "100%" }}>
           <Flex style={{ position: "relative", width: "410px", height: "310px" }}>
@@ -128,8 +128,8 @@ export default function Home() {
 
         {/* Center Diagonal Panel */}
         <div className="panel2 panel2-center scale">
-          <Flex justify="center" align="center" vertical>
-            <span style={{ color: "black", fontSize: "50px" }}>Welcome to War for Treasure</span>
+          <Flex justify="center" align="center" style={{ padding : "30px"}} vertical>
+            <span style={{ color: "black", fontSize: "50px" , whiteSpace : "nowrap"}}>Welcome To War For Trezor</span>
             <span style={{ color: "black", fontSize: "24px" }}>宝のため<span style={{ color: "red" }}>の戦 争へ</span>ようこそ!</span>
           </Flex>
           <img src={section2_1.src} alt="Center Diagonal Image" />

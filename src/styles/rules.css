@@ -1,0 +1,224 @@
+/* Keep your existing main-div-rules styles */
+.main-div-rules {
+    /* Multiple background layers with gradient only affecting car images */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), /* Light gradient overlay */
+        url('../assets/carLeft-removebg-preview.png'), /* Left image */
+        url('../assets/carRight-removebg-preview.png'); /* Right image */
+  
+    background-size: 
+        auto,   /* Right image */
+        auto;   /* Left image */
+  
+    background-position: 
+        right 0 bottom 0%,     /* Right image */
+        left 0 bottom 24%;     /* Left image */
+  
+    background-repeat: 
+        no-repeat,
+        no-repeat;
+  
+    width: 100%;
+    height: 93vh;
+    position: relative;
+    color: white;
+}
+
+/* Keep your existing container styles */
+.main-container {
+    border: 2px solid rgb(255, 0, 81);
+    background-color: black;
+    padding: 30px;
+    border-radius: 50px;
+    width: 800px;
+    height: 500px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+}
+
+.main-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Enhanced content-section styles */
+.content-section {
+    position: relative;
+    background-color: white;
+    border-radius: 50px;
+    width: auto;
+    height: 440px;
+    margin-bottom: 50px;
+    padding: 40px;
+    scroll-snap-align: center;
+    overflow: hidden; /* Added to contain decorative elements */
+}
+
+/* Add corner decorations */
+.content-section::before,
+.content-section::after,
+.corner-bottom-left,
+.corner-bottom-right {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 4px solid black;
+}
+
+.content-section::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.content-section::after {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-bottom-left {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner-bottom-right {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Enhanced title styles */
+.section-title {
+    position: relative;
+    font-size: 2rem;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    transform: rotate(-2deg);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 3px;
+    background-color: red;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background-color: red;
+}
+
+/* Enhanced content styles */
+.section-content {
+    position: relative;
+    font-size: 16px;
+    color: black;
+    text-align: justify;
+    z-index: 2;
+}
+
+/* Add speed lines background */
+.speed-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        #000 10px,
+        #000 11px
+    );
+    z-index: 1;
+}
+
+/* Style numbered lists */
+.section-content ol {
+    list-style: none;
+    padding: 0;
+}
+
+.section-content ol li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.section-content ol li::before {
+    content: counter(list-item);
+    counter-increment: list-item;
+    background-color: red;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-12deg);
+    flex-shrink: 0;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add manga text bubble style */
+.manga-bubble {
+    position: relative;
+    background: white;
+    border: 3px solid black;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    margin-left: 1rem;
+}
+
+.manga-bubble::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right: 12px solid black;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+/* Add hover animation */
+@keyframes pulse {
+    0% { transform: scale(1) rotate(-2deg); }
+    50% { transform: scale(1.02) rotate(-2deg); }
+    100% { transform: scale(1) rotate(-2deg); }
+}
+
+.section-title:hover {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Keep your existing font-face declaration */
+@font-face {
+    font-family: "MangaFont";
+    src: url("/fonts/manga-font.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}

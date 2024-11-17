@@ -3,12 +3,12 @@ import React, { use, useEffect, useState } from 'react'
 import './Map.css';
 import { LocateIcon } from 'lucide-react';
 import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { useZones } from '../../lib/zoneSlice'; // Adjust the import according to your file structure
+import { useZones } from '../../lib/zoneSlice';
 import { useRouter } from 'next/navigation';
 import { Modal, Spin } from 'antd';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
-import { updateLeaderboard } from '../../lib/leaderboardSlice'; // Adjust the import according to your file structure
+import { updateLeaderboard } from '../../lib/leaderboardSlice';
 
 export default function Map_page() {
     const { zones, initialize } = useZones();
