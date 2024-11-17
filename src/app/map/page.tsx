@@ -147,7 +147,7 @@ export default function Map_page() {
                     messageApi.success(`Phase Changed to ${phase}`);
                 }
                 else if (data.event === 'phase3-eligible-team') {
-                    if (data.data.teams.some(team => team.id === teamId)) {
+                    if (data.data.teams.some((team: any) => team.id === teamId)) {
                         messageApi.success('Your team is eligible for Phase 3');
                         router.push('/trivia');
                     }
