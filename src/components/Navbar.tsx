@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import SignInModal from "./signIn";
 import { parseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import "@/styles/navbar.css";
+
 const firaSansCondensed = Fira_Sans_Condensed({
     weight: "700",
     subsets: ["latin"],
@@ -33,10 +35,10 @@ export default function Navbar() {
     };
 
     return (
-        <div>
+        <div className="navbar">
             <Flex justify="space-between" align="center" style={{ paddingInline: "70px", paddingTop: "10px" }}>
                 <Flex>
-                    <h1 className={firaSansCondensed.className} style={{ fontWeight: "800", fontSize: "20px" , color : "black" , cursor : "pointer" , userSelect : "none" }} onClick={() => {router.push("/s")}}>WAR.FOR.TREZOR</h1>
+                    <h1 className={firaSansCondensed.className} style={{ fontWeight: "800", fontSize: "20px" , color : "black" , cursor : "pointer" , userSelect : "none" }} onClick={() => {router.push("/")}}>WAR.FOR.TREZOR</h1>
                 </Flex>
                 <Flex gap={90} justify="center" align="center">
                     <Flex justify="center" gap={20} style={{ fontWeight: "600" }}>
