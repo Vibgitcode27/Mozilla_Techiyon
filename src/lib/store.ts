@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authSlice from './authSlice';
 import zoneSlice from './zoneSlice';
+import leaderboardSlice from './leaderboardSlice';
 
 const persistConfig = {
     key: 'root',
@@ -12,6 +13,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: authSlice,
     zones: zoneSlice,
+    leaderboard: leaderboardSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

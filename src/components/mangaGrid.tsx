@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MangaGrid.css';
 import { Input, Button } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';

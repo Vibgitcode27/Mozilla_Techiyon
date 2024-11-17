@@ -1,6 +1,5 @@
-
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Navbar from "@/components/Navbar";
 import "../styles/home.css";
@@ -9,7 +8,7 @@ import img1 from "@/assets/girsl-images-removebg-preview.png";
 import img2 from "@/assets/min-image.jpeg";
 import img3 from "@/assets/image3_side.png";
 import side from "@/assets/sideSkirt-removebg-preview.png";
-
+import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { Fira_Sans_Condensed, M_PLUS_2 } from "next/font/google";
 
 import footerImg from "@/assets/gojo satoru.jpg"
@@ -41,9 +40,18 @@ const japanese = M_PLUS_2({
 });
 
 export default function Home() {
-
+  const coolkie = parseCookie(document.cookie);
   const router = useRouter();
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add state to track login status
+  const checkLogin = () => {
+    const jwt = coolkie.get("jwt");
+    if (jwt) {
+      setIsLoggedIn(true);
+    }
+  }
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <div>
       <Navbar />
@@ -88,7 +96,13 @@ export default function Home() {
             <h2 style={{ color: "black" }} className={`${firaSansCondensed.className}`}>Unlock the Treasure, Conquer the Battle, Live the Adventure.</h2>
           </Flex>
           <Flex gap={20} style={{ paddingRight: "20px" }}>
-            <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }} style={{ backgroundColor: "#bebebebb", color: "black", fontSize: "22px", fontWeight: "700", borderRadius: "20px", height: "55px", width: "170px" }}>PLAY NOW</Button>
+            <Button onClick={() => {
+              if (isLoggedIn) {
+                router.push("/map");
+              } else {
+                router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1");
+              }
+            }} style={{ backgroundColor: "#bebebebb", color: "black", fontSize: "22px", fontWeight: "700", borderRadius: "20px", height: "55px", width: "170px" }}>PLAY NOW</Button>
             <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }} style={{ border: "2px solid black", fontWeight: "600", fontSize: "22px", backgroundColor: "black", color: "white", height: "55px", width: "170px", borderRadius: "20px" }}>CONTACT US</Button>
 
           </Flex>
@@ -144,7 +158,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Panel 2 with Diagonal Cut and Text Box */}
+        {/* Panel 2 with Diagonal Cut */}
         <div className="panel panel-diagonal-2">
           <img src={section3_1.src} alt="Manga Panel 2" />
         </div>
