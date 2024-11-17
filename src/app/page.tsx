@@ -1,12 +1,15 @@
-"use client"
+'use client'
+import React, { useEffect, useState } from 'react';
 
 import Navbar from "@/components/Navbar";
 import "../styles/home.css";
-import { Button, Flex, Image } from "antd";
+import { Button, Flex, Image, Modal } from "antd";
 import img1 from "@/assets/girsl-images-removebg-preview.png";
 import img2 from "@/assets/min-image.jpeg";
 import img3 from "@/assets/image3_side.png";
 import side from "@/assets/sideSkirt-removebg-preview.png";
+import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import { Fira_Sans_Condensed, M_PLUS_2 } from "next/font/google";
 
 import footerImg from "@/assets/gojo satoru.jpg"
 
@@ -23,34 +26,39 @@ import section3_1 from "@/assets/section3/mostly_notfinal_edited.png"
 
 import sorry from "@/assets/sorry.png"
 
-
-
-import { Fira_Sans_Condensed , M_PLUS_2} from "next/font/google";
 import { TwitterOutlined, InstagramOutlined, WhatsAppOutlined } from "@ant-design/icons";
 
-const firaSansCondensed =  Fira_Sans_Condensed({
+
+const firaSansCondensed = Fira_Sans_Condensed({
   weight: "700",
   subsets: ["latin"],
 });
 
-
-const japanese =  M_PLUS_2({
+const japanese = M_PLUS_2({
   weight: "900",
   subsets: ["latin"],
 });
 
-
 export default function Home() {
-
+  const coolkie = parseCookie(document.cookie);
   const router = useRouter();
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add state to track login status
+  const checkLogin = () => {
+    const jwt = coolkie.get("jwt");
+    if (jwt) {
+      setIsLoggedIn(true);
+    }
+  }
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="main-div">
-        <Flex vertical style={{ fontFamily : "fantasy" , fontSize : "35px" , fontWeight : "800" , paddingLeft : "400px" , paddingTop : "10px"}} justify="start">
-          <h1 className={`${firaSansCondensed.className} half-top-border element`} style={{ color : "black" , paddingLeft : "10px"}}><span style={{ color : "red"}}>WA</span>R.FOR</h1>
-          <h1 className={`${firaSansCondensed.className} element2`} style={{ color : "black" , marginLeft : "40px" , paddingLeft : "12px"}}>TREASURE</h1>
+        <Flex vertical style={{ fontFamily: "fantasy", fontSize: "35px", fontWeight: "800", paddingLeft: "400px", paddingTop: "10px" }} justify="start">
+          <h1 className={`${firaSansCondensed.className} half-top-border element`} style={{ color: "black", paddingLeft: "10px" }}><span style={{ color: "red" }}>WA</span>R.FOR</h1>
+          <h1 className={`${firaSansCondensed.className} element2`} style={{ color: "black", marginLeft: "40px", paddingLeft: "12px" }}>TREASURE</h1>
         </Flex>
         <Flex justify="space-between" align="center" gap={100} style={{ background: "transparent", width: "100%" }}>
           <Flex style={{ position: "relative", width: "410px", height: "310px" }}>
@@ -58,19 +66,19 @@ export default function Home() {
               style={{
                 position: "absolute",
                 top: "20px",
-                fontWeight : "700"
+                fontWeight: "700"
               }}
               vertical
             >
-              <h1 style={{ color : "black" , width : "200px"}}>r Social Media</h1>
-                <Flex
-                  gap={20}
-                  style={{
-                    backgroundColor: "black",
-                    padding: "10px",
-                    borderRadius: "8px"
-                  }}
-                >
+              <h1 style={{ color: "black", width: "200px" }}>r Social Media</h1>
+              <Flex
+                gap={20}
+                style={{
+                  backgroundColor: "black",
+                  padding: "10px",
+                  borderRadius: "8px"
+                }}
+              >
                 <TwitterOutlined style={{ fontSize: "30px", color: "white", margin: "5px" }} />
                 <InstagramOutlined style={{ fontSize: "30px", color: "white", margin: "5px" }} />
                 <WhatsAppOutlined style={{ fontSize: "30px", color: "white", margin: "5px" }} />
@@ -82,21 +90,28 @@ export default function Home() {
           <Image src={img3.src} style={{ width: "420px", height: "auto", border: "2.5px solid black" }} preview={false} alt="hero" />
         </Flex>
         <Flex justify="space-between" align="center">
-          <Flex vertical style={{ paddingInline : "30px"}}>
-             <h2 style={{ color : "black" , paddingLeft : "10px" , fontSize : "25px" , width : "auto"}} className={`${firaSansCondensed.className} element2`}>MOZILLA PHEO<span style={{ color : "red"}}>NIX CL</span>UB</h2>
-             <h1 style={{ color : "black" , fontSize : "70px"}} className={`${japanese.className}`}>ウブは決して死ぬ</h1>
-             <h2 style={{ color : "black"}} className={`${firaSansCondensed.className}`}>Unlock the Treasure, Conquer the Battle, Live the Adventure.</h2>
+          <Flex vertical style={{ paddingInline: "30px" }}>
+            <h2 style={{ color: "black", paddingLeft: "10px", fontSize: "25px", width: "auto" }} className={`${firaSansCondensed.className} element2`}>MOZILLA PHEO<span style={{ color: "red" }}>NIX CL</span>UB</h2>
+            <h1 style={{ color: "black", fontSize: "70px" }} className={`${japanese.className}`}>ウブは決して死ぬ</h1>
+            <h2 style={{ color: "black" }} className={`${firaSansCondensed.className}`}>Unlock the Treasure, Conquer the Battle, Live the Adventure.</h2>
           </Flex>
-          <Flex gap={20}  style={{ paddingRight : "20px"}}>
-            <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1")}} style={{backgroundColor : "#bebebebb" , color : "black" , fontSize : "22px" , fontWeight : "700" , borderRadius : "20px" , height : "55px" , width : "170px" }}>PLAY NOW</Button>
-            <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1")}} style={{ border : "2px solid black", fontWeight : "600" ,  fontSize : "22px" , backgroundColor : "black"  , color : "white" , height : "55px" , width : "170px" , borderRadius : "20px"}}>CONTACT US</Button>
+          <Flex gap={20} style={{ paddingRight: "20px" }}>
+            <Button onClick={() => {
+              if (isLoggedIn) {
+                router.push("/map");
+              } else {
+                router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1");
+              }
+            }} style={{ backgroundColor: "#bebebebb", color: "black", fontSize: "22px", fontWeight: "700", borderRadius: "20px", height: "55px", width: "170px" }}>PLAY NOW</Button>
+            <Button onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }} style={{ border: "2px solid black", fontWeight: "600", fontSize: "22px", backgroundColor: "black", color: "white", height: "55px", width: "170px", borderRadius: "20px" }}>CONTACT US</Button>
+
           </Flex>
         </Flex>
         <Flex justify="space-between" align="center">
           <h1></h1>
           <Flex justify="center" align="center">
-            <h1 className={firaSansCondensed.className} style={{ color : "black" , fontSize : "36px"}}><span style={{ color : "gray"}}>2024</span>_2025</h1>
-            <Image preview={false} style={{ width : "500px"}} src={side.src}/>
+            <h1 className={firaSansCondensed.className} style={{ color: "black", fontSize: "36px" }}><span style={{ color: "gray" }}>2024</span>_2025</h1>
+            <Image preview={false} style={{ width: "500px" }} src={side.src} />
           </Flex>
         </Flex>
       </div>
@@ -105,21 +120,21 @@ export default function Home() {
         {/* <div className="panel panel-top-left">
           <img src={img1.src} alt="Top Left Image" />
         </div> */}
-        
+
         {/* Top Right Panel */}
         {/* <div className="panel panel-top-right">
           <img src={img2.src} alt="Top Right Image" />
         </div> */}
-        
+
         {/* Center Diagonal Panel */}
         <div className="panel2 panel2-center scale">
           <Flex justify="center" align="center" vertical>
-            <span style={{ color : "black" , fontSize : "50px"}}>Welcome to War for Treasure</span>
-            <span style={{ color : "black" , fontSize : "24px"}}>宝のため<span style={{ color : "red"}}>の戦 争へ</span>ようこそ!</span>
+            <span style={{ color: "black", fontSize: "50px" }}>Welcome to War for Treasure</span>
+            <span style={{ color: "black", fontSize: "24px" }}>宝のため<span style={{ color: "red" }}>の戦 争へ</span>ようこそ!</span>
           </Flex>
-          <img src={section2_1.src} alt="Center Diagonal Image"/>
+          <img src={section2_1.src} alt="Center Diagonal Image" />
         </div>
-        
+
         {/* Bottom Left Panel */}
         <div className="panel2 panel2-bottom-left">
           <img src={section2_2.src} alt="Bottom Left Image" />
@@ -132,22 +147,22 @@ export default function Home() {
 
       <div className="super_saiyan">
         {/* Panel 1 with Diagonal Cut */}
-        <div 
-          className="panel panel-diagonal-1" 
+        <div
+          className="panel panel-diagonal-1"
           style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}
         >
-          <img 
-            src={section3_2.src}  
-            alt="Manga Panel 1" 
+          <img
+            src={section3_2.src}
+            alt="Manga Panel 1"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />
         </div>
-        
-        {/* Panel 2 with Diagonal Cut and Text Box */}
+
+        {/* Panel 2 with Diagonal Cut */}
         <div className="panel panel-diagonal-2">
           <img src={section3_1.src} alt="Manga Panel 2" />
         </div>
-        
+
         {/* Panel 3 with Diagonal Cut */}
         <div className="panel panel-diagonal-3">
           <img src={section3_3.src} alt="Manga Panel 2" />
@@ -159,12 +174,12 @@ export default function Home() {
       </div>
 
 
-      <div className="mobile-message" style={{ display: "none", height : "100%" }}>
+      <div className="mobile-message" style={{ display: "none", height: "100%" }}>
         <h1>Developers Left The Job!</h1>
         <p>This event is desktop-only. Please switch to a larger screen to experience it.</p>
         <img src={sorry.src} alt="Apology" />
         <p>But if you think you are special, we have something for you</p>
-        <Button style={{ marginTop : "10px" , fontWeight : "700" }} onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1")}}>Gift</Button>
+        <Button style={{ marginTop: "10px", fontWeight: "700" }} onClick={() => { router.push("https://www.youtube.com/watch?v=j5a0jTc9S10&list=PLrXk_RHmNdhHW95zl63D6IhFn9OW5Ia1N&index=1") }}>Gift</Button>
       </div>
 
       <footer className="footer-d" style={{
@@ -199,7 +214,7 @@ export default function Home() {
         </div>
 
         {/* Image */}
-        <Flex 
+        <Flex
           justify="center"
           style={{
             width: "100%",
