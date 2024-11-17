@@ -130,8 +130,9 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
                         <DialogDescription>Sign up or sign in to your team account.</DialogDescription>
                     </DialogHeader>
                     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                        <TabsList className="grid w-full grid-cols-1">
+                        <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="sign-up">Sign Up</TabsTrigger>
+                            <TabsTrigger value="sign-in">Sign In</TabsTrigger>
                         </TabsList>
                         <TabsContent value="sign-up">
                             <Card>
@@ -192,16 +193,37 @@ export default function SignInModal({ isOpen, onClose }: { isOpen: boolean, onCl
                                 </CardContent>
                             </Card>
                         </TabsContent>
+                        <TabsContent value="sign-in">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Sign In to Your Team Account</CardTitle>
+                                    <CardDescription>Enter your team credentials to sign in.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <form onSubmit={handleSignIn}>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="signInTeamName">Team Name</Label>
+                                            <Input id="signInTeamName" name="teamName" required />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="signInPassword">Password</Label>
+                                            <Input id="signInPassword" name="password" type="password" required />
+                                        </div>
+                                        <Button type="submit" className="w-full mt-4">Sign In</Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </TabsContent>
                     </Tabs>
                     <CardFooter className="flex justify-center">
                         <p className="text-sm text-muted-foreground">
-                            {activeTab === 'sign-up' ? "Hello :)" : "Don't have an account? "}
+                            {activeTab === 'sign-up' ? "Already have an account? " : "Don't have an account? "}
                             <Button
                                 variant="link"
                                 className="p-0"
-                                onClick={() => setActiveTab(activeTab === 'sign-up' ? 'sign-up' : 'sign-up')}
+                                onClick={() => setActiveTab(activeTab === 'sign-up' ? 'sign-in' : 'sign-up')}
                             >
-                                {activeTab === 'sign-up'}
+                                {activeTab === 'sign-up' ? "Sign In" : "Sign Up"}
                             </Button>
                         </p>
                     </CardFooter>
