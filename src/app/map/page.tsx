@@ -10,7 +10,7 @@ import { Modal, Spin } from 'antd';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { updateLeaderboard } from '../../lib/leaderboardSlice'; // Adjust the import according to your file structure
-
+import BroadCast from '@/components/BroadCasts';
 export default function Map_page() {
     const { zones, initialize } = useZones();
     const [messageApi, contextHolder] = message.useMessage();
