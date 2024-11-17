@@ -9,6 +9,7 @@ export default function BuffsDebuffs() {
     const [targetTeams, setTargetTeams] = useState<{ teamName: string }[]>([]);
     const [selectedBuff, setSelectedBuff] = useState<string | null>(null);
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
+    const cookie = parseCookie(document.cookie);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -22,7 +23,7 @@ export default function BuffsDebuffs() {
             window.location.href = "/";
         }
 
-        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "");
+        const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_BASE_URL || "ws://ec2-13-127-35-120.ap-south-1.compute.amazonaws.com:3000");
         ws.onopen = () => {
             console.log('WebSocket connection opened');
         };
@@ -44,7 +45,8 @@ export default function BuffsDebuffs() {
 
     const fetchAvailableBuffs = () => {
         const myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbTNqd2NuMXkwMDAwdzFybG5xemI3cGc5IiwiaWF0IjoxNzMxNzQ1MTU2LCJleHAiOjE3MzIzNDk5NTZ9.J8Y9XkvbywUo5H8NWvVSjeeSU4OqEq9kgiUM-qrGOg8");
+        const jwt = cookie.get("jwt");
+        myHeaders.append("Authorization", "Bearer " + jwt);
 
         const requestOptions = {
             method: "POST",
@@ -53,7 +55,7 @@ export default function BuffsDebuffs() {
             redirect: "follow" as RequestRedirect
         };
 
-        fetch("http://localhost:5000/public/teams/available-buffs", requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/teams/available-buffs`, requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 setAvailableBuffs(result.availableBuffs);
@@ -66,7 +68,7 @@ export default function BuffsDebuffs() {
         if (selectedBuff && selectedTeam) {
             const token = parseCookie(document.cookie);
             const jwt = token.get("jwt");
-            fetch("http://localhost:5000/private/teams/apply-buff-debuff", {
+            fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/public/teams/buff-debuff`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
